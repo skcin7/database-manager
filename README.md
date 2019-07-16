@@ -56,6 +56,8 @@ After installation, there will be 3 new Artisan commands available in your proje
 
 Now you can schedule your Laravel database backups (such as a daily backup) using Laravel Task Scheduling.
 
+Inside `app/Console/Kernel.php`:
+
 ```PHP
 /**
  * Define the application's command schedule.
@@ -63,11 +65,9 @@ Now you can schedule your Laravel database backups (such as a daily backup) usin
  * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
  * @return void
  */
- protected function schedule(Schedule $schedule) {
-     $environment = config('app.env');
-     $schedule->command(
-         "db:backup --database=mysql --destination=s3 --destinationPath=/{$environment}/projectname --timestamp="Y_m_d_H_i_s" --compression=gzip"
-         )->twiceDaily(13,21);
+ protected function schedule(Schedule $schedule)
+ {
+     $schedule->command('database-manager:create-backup')->daily();
  }
 ```
 

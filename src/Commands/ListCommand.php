@@ -7,11 +7,11 @@ use Symfony\Component\Console\Input\InputOption;
 use BackupManager\Filesystems\FilesystemProvider;
 
 /**
- * Class ListBackupsCommand
+ * Class ListCommand
  *
  * @package skcin7\DatabaseManager
  */
-class ListBackupsCommand extends Command {
+class ListCommand extends Command {
 
     use AutoComplete;
 
@@ -20,7 +20,7 @@ class ListBackupsCommand extends Command {
      *
      * @var string
      */
-    protected $name = 'database-manager:list-backups';
+    protected $name = 'db:list';
 
     /**
      * The console command description.
@@ -48,7 +48,6 @@ class ListBackupsCommand extends Command {
      */
     private $missingArguments;
 
-
     /**
      * @param FilesystemProvider $filesystems
      */
@@ -67,7 +66,7 @@ class ListBackupsCommand extends Command {
      * @return void
      */
     public function handle() {
-        if ($this->isMissingArguments()) {
+        if($this->isMissingArguments()) {
             $this->displayMissingArguments();
             $this->promptForMissingArgumentValues();
             $this->validateArguments();
@@ -92,8 +91,8 @@ class ListBackupsCommand extends Command {
      * @return bool
      */
     private function isMissingArguments() {
-        foreach ($this->required as $argument) {
-            if ( ! $this->option($argument)) {
+        foreach($this->required as $argument) {
+            if(! $this->option($argument)) {
                 $this->missingArguments[] = $argument;
             }
         }
@@ -105,7 +104,7 @@ class ListBackupsCommand extends Command {
      */
     private function displayMissingArguments() {
         $formatted = implode(', ', $this->missingArguments);
-        $this->info("These arguments haven't been filled yet: <comment>{$formatted}</comment>.");
+        $this->info("You need to specify these arguments: <comment>{$formatted}</comment>.");
         $this->info('The following questions will fill these in for you.');
         $this->line('');
     }
@@ -114,10 +113,11 @@ class ListBackupsCommand extends Command {
      * @return void
      */
     private function promptForMissingArgumentValues() {
-        foreach ($this->missingArguments as $argument) {
-            if ($argument == 'source') {
+        foreach($this->missingArguments as $argument) {
+            if($argument === 'source') {
                 $this->askSource();
-            } elseif ($argument == 'path') {
+            }
+            elseif($argument === 'path') {
                 $this->askPath();
             }
             $this->line('');

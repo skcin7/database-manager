@@ -9,11 +9,11 @@ use BackupManager\Procedures\RestoreProcedure;
 use BackupManager\Filesystems\FilesystemProvider;
 
 /**
- * Class RestoreBackupCommand
+ * Class RestoreCommand
  *
  * @package skcin7\DatabaseManager
  */
-class RestoreBackupCommand extends Command {
+class RestoreCommand extends Command {
 
     use AutoComplete;
 
@@ -22,7 +22,7 @@ class RestoreBackupCommand extends Command {
      *
      * @var string
      */
-    protected $name = 'database-manager:restore-backup';
+    protected $name = 'db:restore';
 
     /**
      * The console command description.

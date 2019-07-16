@@ -10,11 +10,11 @@ use BackupManager\Procedures\BackupProcedure;
 use BackupManager\Filesystems\FilesystemProvider;
 
 /**
- * Class CreateBackupCommand
+ * Class BackupCommand
  *
  * @package skcin7\DatabaseManager
  */
-class CreateBackupCommand extends Command {
+class BackupCommand extends Command {
 
     use AutoComplete;
 
@@ -23,7 +23,7 @@ class CreateBackupCommand extends Command {
      *
      * @var string
      */
-    protected $name = 'database-manager:create-backup';
+    protected $name = 'db:backup';
 
     /**
      * The console command description.

@@ -110,9 +110,9 @@ class DatabaseManagerServiceProvider extends ServiceProvider {
      */
     private function registerArtisanCommands() {
         $this->commands([
-            \skcin7\DatabaseManager\Commands\CreateBackupCommand::class,
-            \skcin7\DatabaseManager\Commands\ListBackupsCommand::class,
-            \skcin7\DatabaseManager\Commands\RestoreBackupCommand::class,
+            \skcin7\DatabaseManager\Commands\BackupCommand::class,
+            \skcin7\DatabaseManager\Commands\ListCommand::class,
+            \skcin7\DatabaseManager\Commands\RestoreCommand::class,
         ]);
     }
 

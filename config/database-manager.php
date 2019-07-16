@@ -20,24 +20,20 @@ return [
             'root' => storage_path('app'),
         ],
         'dropbox' => [
-            'type'   => 'DropboxV2',
-            'token'  => env('DROPBOX_TOKEN', ''),
-            'key'    => env('DROPBOX_KEY', ''),
+            'type' => 'DropboxV2',
+            'token' => env('DROPBOX_TOKEN', ''),
+            'key' => env('DROPBOX_KEY', ''),
             'secret' => env('DROPBOX_SECRET', ''),
-            'app'    => env('DROPBOX_APP', ''),
-            'root'   => env('DROPBOX_ROOT', ''),
+            'app' => env('DROPBOX_APP', ''),
+            'root' => env('DROPBOX_ROOT', ''),
 
             // Set in `backup-manager/backup-manager/src/FileSystems/DropboxV2Filesystem`
-            // using `$config['filesystemConfig']`.
-            'filesystem'   => [
+            // using `isset($config['filesystem']) ? $config['filesystem'] : []`.
+            'filesystem' => [
                 'disable_asserts' => true
             ],
         ]
 
     ],
-
-    // Unused:
-    //    'provider' => 'dropbox',
-    //    'compression' => 'gzip',
 
 ];

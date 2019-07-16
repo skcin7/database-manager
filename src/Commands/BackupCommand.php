@@ -94,68 +94,38 @@ class BackupCommand extends Command {
         // Ensure all required arguments are set, and validate them.
         $this->promptUserForRequiredArguments();
 
-
 //        if(! $this->validateArguments()) {
 //            $this->error('Backup cancelled.');
 //            return 1;
 //        }
 
         try {
-            $destinations = [
-                new Destination(
-                    'dropbox',
-                    'aa'
-                )
-            ];
+            // Store a list of destinations for where this backup to be stored to.
+            $destinations = [];
 
-            $this->info('Dumping database and uploading...');
+            // Store a 'latest' copy which will always be the most up-to-date one:
+            $destinations[] = new Destination(
+                $this->option('provider'),
+                $this->option('database') . '-latest.sql'
+            );
+
+            // Store a copy with the filename corresponding to the date/time it was backed up:
+            $destinations[] = new Destination(
+                $this->option('provider'),
+                $this->option('database') . '-' . Carbon::now()->format('Y-m-d-H-i-s') . '.sql'
+            );
+
+            $this->info('Backing up ...');
             $this->backupProcedure->run(
                 $this->option('database'),
                 $destinations,
-                'gzip'
+                $this->compression
             );
         }
         catch (\Exception $ex) {
             $this->error($ex->getMessage());
             return 1;
         }
-
-
-
-
-
-
-
-
-//        // Store a list of destinations for where this backup to be stored to.
-//        $destinations = [];
-//
-//        // Store a 'latest' copy which will always be the most up-to-date one:
-//        $destinations[] = new Destination(
-//            $this->option('provider'),
-//            $this->option('database') . '-latest'
-//        );
-//
-//        // Store a copy with the filename corresponding to the date/time it was backed up:
-//        $destinations[] = new Destination(
-//            $this->option('provider'),
-//            $this->option('database') . '-' . Carbon::now()->format('Y-m-d-H-i-s')
-//        );
-//
-//        try {
-//            $this->info('Backing up ...');
-//            $this->backupProcedure->run(
-//                $this->option('database'),
-//                $destinations,
-//                $this->compression
-//            );
-//        }
-//        catch (\Exception $ex) {
-//            $this->error($ex->getMessage());
-//            return 1;
-//        }
-
-
 
         $this->info(sprintf('Successfully backed up! Database: `<comment>%s</comment>`, Provider: `<comment>%s</comment>`!',
             $this->option('database'),

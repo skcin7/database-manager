@@ -91,7 +91,7 @@ class DatabaseManagerServiceProvider extends ServiceProvider {
      */
     private function registerFilesystemProvider() {
         $this->app->bind(\BackupManager\Filesystems\FilesystemProvider::class, function ($app) {
-            $provider = new Filesystems\FilesystemProvider(new Config($app['config']['database-manager']));
+            $provider = new Filesystems\FilesystemProvider(new Config($app['config']['database-manager.providers']));
             $provider->add(new Filesystems\Awss3Filesystem);
             $provider->add(new Filesystems\GcsFilesystem);
             $provider->add(new Filesystems\DropboxFilesystem);

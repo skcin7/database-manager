@@ -20,7 +20,7 @@ Laravel package to manage your databases (including backups) easily in a Laravel
 
 It's stable.
 
-I'm actively using this package in my own Laravel projects for managing backups. I would appreciate all feedback/suggestions you may have by [opening a GitHub issue here](https://github.com/skcin7/database-manager).
+I'm actively using this package in my own Laravel projects for managing backups. I would appreciate all feedback/suggestions you may have by [opening a GitHub issue](https://github.com/skcin7/database-manager/issues/new).
 
 ### Requirements
 

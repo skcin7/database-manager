@@ -16,7 +16,7 @@ use BackupManager\Filesystems\FilesystemProvider;
  */
 class CreateBackupCommand extends Command {
 
-    use AutoCompleteTrait;
+    use AutoComplete;
 
     /**
      * The console command name.

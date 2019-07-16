@@ -10,7 +10,7 @@ use Symfony\Component\Console\Exception\InvalidArgumentException;
  *
  * @package skcin7\DatabaseManager
  */
-trait AutoCompleteTrait {
+trait AutoComplete {
 
     /**
      * @param $dialog

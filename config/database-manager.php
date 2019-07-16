@@ -2,9 +2,13 @@
 
 return [
 
+//    'provider' => 'dropbox',
+
+    'compression' => 'gzip',
+
     /*
 	|--------------------------------------------------------------------------
-	| Dropbox Settings
+	| Filesystems Settings
 	|--------------------------------------------------------------------------
 	|
 	| This lets you set the credentials for your dropbox app which is used
@@ -13,6 +17,13 @@ return [
 	|
 	*/
 
+//    'providers' => [
+//
+//
+//
+//    ],
+
+
     'dropbox' => [
         'type'   => 'DropboxV2',
         'token'  => env('DROPBOX_TOKEN', ''),
@@ -20,5 +31,5 @@ return [
         'secret' => env('DROPBOX_SECRET', ''),
         'app'    => env('DROPBOX_APP', ''),
         'root'   => env('DROPBOX_ROOT', ''),
-    ],
+    ]
 ];

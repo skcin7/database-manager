@@ -13,7 +13,7 @@ use BackupManager\Filesystems\FilesystemProvider;
  */
 class ListCommand extends Command {
 
-    use AutoComplete;
+    use HandlesCommands;
 
     /**
      * The console command name.
@@ -87,79 +87,27 @@ class ListCommand extends Command {
         $this->table(['Name', 'Extension', 'Size', 'Created'], $rows);
     }
 
-    /**
-     * @return bool
-     */
-    private function isMissingArguments() {
-        foreach($this->required as $argument) {
-            if(! $this->option($argument)) {
-                $this->missingArguments[] = $argument;
-            }
-        }
-        return isset($this->missingArguments);
-    }
 
-    /**
-     * @return void
-     */
-    private function displayMissingArguments() {
-        $formatted = implode(', ', $this->missingArguments);
-        $this->info("You need to specify these arguments: <comment>{$formatted}</comment>.");
-        $this->info('The following questions will fill these in for you.');
-        $this->line('');
-    }
 
-    /**
-     * @return void
-     */
-    private function promptForMissingArgumentValues() {
-        foreach($this->missingArguments as $argument) {
-            if($argument === 'source') {
-                $this->askSource();
-            }
-            elseif($argument === 'path') {
-                $this->askPath();
-            }
-            $this->line('');
-        }
-    }
 
-    /**
-     *
-     */
-    private function askSource() {
-        $providers = $this->filesystems->getAvailableProviders();
-        $formatted = implode(', ', $providers);
-        $this->info("Available sources: <comment>{$formatted}</comment>");
-        $source = $this->autocomplete("From which source do you want to list?", $providers);
-        $this->input->setOption('source', $source);
-    }
 
-    /**
-     *
-     */
-    private function askPath() {
-        $root = $this->filesystems->getConfig($this->option('source'), 'root');
-        $path = $this->ask("From which path?<comment> {$root}</comment>");
-        $this->input->setOption('path', $path);
-    }
 
-    /**
-     * @return void
-     */
-    private function validateArguments() {
-        $root = $this->filesystems->getConfig($this->option('source'), 'root');
-        $this->info('Just to be sure...');
-        $this->info(sprintf('Do you want to list files from <comment>%s</comment> on <comment>%s</comment>?',
-            $root . $this->option('path'),
-            $this->option('source')
-        ));
-        $this->line('');
-        $confirmation = $this->confirm('Are these correct? [Y/n]');
-        if ( ! $confirmation) {
-            $this->reaskArguments();
-        }
-    }
+//    /**
+//     * @return void
+//     */
+//    private function validateArguments() {
+//        $root = $this->filesystems->getConfig($this->option('source'), 'root');
+//        $this->info('Just to be sure...');
+//        $this->info(sprintf('Do you want to list files from <comment>%s</comment> on <comment>%s</comment>?',
+//            $root . $this->option('path'),
+//            $this->option('source')
+//        ));
+//        $this->line('');
+//        $confirmation = $this->confirm('Are these correct? [Y/n]');
+//        if ( ! $confirmation) {
+//            $this->reaskArguments();
+//        }
+//    }
 
     /**
      * Get the console command options.
@@ -185,16 +133,5 @@ class ListCommand extends Command {
         ];
     }
 
-    /**
-     * @param $bytes
-     * @param int $precision
-     * @return string
-     */
-    private function formatBytes($bytes, $precision = 2) {
-        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
-        $bytes = max($bytes, 0);
-        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
-        $pow = min($pow, count($units) - 1);
-        return round($bytes, $precision) . ' ' . $units[$pow];
-    }
+
 } 

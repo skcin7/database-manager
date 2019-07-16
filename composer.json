@@ -1,6 +1,6 @@
 {
   "name": "skcin7/database-manager",
-  "description": "Manage databases (including backups) easily in a Laravel project. Package is based on `backup-manager/laravel` by Shawn McCool and Mitchell van Wijngaarden so credit to them for their great contributions.",
+  "description": "Manage databases (including backups) easily in a Laravel project.",
   "authors": [
     {
       "name": "Nick Morgan",

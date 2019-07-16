@@ -1,4 +1,4 @@
-# Database Manager Package for Your Laravel Projects
+# Database Manager - Laravel Package
 
 Laravel package to manage your databases (including backups) easily in a Laravel project.
 
@@ -90,4 +90,4 @@ This package is maintained by [Nick Morgan](http://nicholas-morgan.com).
 
 ### License
 
-This package is licensed under the [MIT license](https://github.com/skcin7/database-manager/blob/master/LICENSE).
+This package is licensed under the [MIT license](https://github.com/skcin7/database-manager/blob/master/LICENSE.md).

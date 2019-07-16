@@ -4,7 +4,7 @@ Laravel package to manage your databases (including backups) easily in a Laravel
 
 > Note: This package makes use of the framework-agnostic [backup-manager/backup-manager](https://github.com/backup-manager/backup-manager) package which this one is a dependency of. For more information (including Symfony driver) see that package.
 
-> Credit: This package is based on [backup-manager/laravel](https://github.com/backup-manager/laravel) by Shawn McCool and Mitchell van Wijngaarden so credit to them for their great work.
+> Credit: This package is based on [backup-manager/laravel](https://github.com/backup-manager/laravel) by [Shawn McCool](http://shawnmc.cool) and [Mitchell van Wijngaarden](http://kooding.nl). Credit to them for their great work.
 
 ### Table of Contents
 

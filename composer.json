@@ -1,0 +1,43 @@
+{
+  "name": "skcin7/database-manager",
+  "description": "Manage databases (including backups) easily in a Laravel project. Package is based on `backup-manager/laravel` by Shawn McCool and Mitchell van Wijngaarden so credit to them for their great contributions.",
+  "authors": [
+    {
+      "name": "Nick Morgan",
+      "email": "nick@nicholas-morgan.com",
+      "homepage": "https://nicholas-morgan.com/"
+    }
+  ],
+  "require": {
+    "backup-manager/backup-manager": "^1.0",
+    "php": ">=5.5.0",
+    "symfony/process": "^2.0||^3.0||^4.0",
+    "illuminate/support": "^4.0||^5.0",
+    "illuminate/container": "^4.0||^5.0",
+    "illuminate/console": "^4.0||^5.0",
+    "srmklive/flysystem-dropbox-v2": "^1.0"
+  },
+  "require-dev": {
+    "mockery/mockery": "dev-master",
+    "satooshi/php-coveralls": "~0.6"
+  },
+  "config": {
+    "bin-dir": "bin"
+  },
+  "autoload": {
+    "psr-4": {
+      "skcin7\\DatabaseManager\\": "src/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    },
+    "laravel": {
+      "providers": [
+        "skcin7\\DatabaseManager\\DatabaseManagerServiceProvider"
+      ]
+    }
+  },
+  "license": "MIT"
+}

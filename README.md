@@ -52,7 +52,7 @@ This package makes use of your database configurations in `config/database.php`.
 
 After installation, there will be 3 new Artisan commands available in your project which are: `database-manager:create-backup`, `database-manager:list-backups`, and `database-manager:restore-backup`.
 
-### Scheduling Your Backups
+### Scheduling Backups
 
 Now you can schedule your Laravel database backups (such as a daily backup) using Laravel Task Scheduling.
 

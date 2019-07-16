@@ -2,6 +2,7 @@
   "name": "skcin7/database-manager",
   "type": "package",
   "description": "Laravel package to manage your databases (including backups) easily in a Laravel project.",
+  "version": "0.0.1-dev",
   "license": "MIT",
   "authors": [
     {

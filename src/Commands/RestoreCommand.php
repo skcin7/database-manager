@@ -149,7 +149,7 @@ class RestoreCommand extends Command {
                 $files = [];
 
                 foreach($contents as $file) {
-                    if ($file['type'] == 'dir') continue;
+                    if($file['type'] == 'dir') continue;
                     $files[] = $file['basename'];
                 }
 

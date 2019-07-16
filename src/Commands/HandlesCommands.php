@@ -15,7 +15,7 @@ trait HandlesCommands
 {
 
 
-    
+
 
 
 
@@ -101,24 +101,19 @@ trait HandlesCommands
 
 
 
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions() {
-        return [
-            ['database', null, InputOption::VALUE_OPTIONAL, 'Database configuration name', null],
-            ['provider', null, InputOption::VALUE_OPTIONAL, 'Provider to be used to store the backup', null],
-        ];
-
+//    /**
+//     * Get the console command options.
+//     *
+//     * @return array
+//     */
+//    protected function getOptions() {
 //        return [
 //            ['database', null, InputOption::VALUE_OPTIONAL, 'Database configuration name', null],
 //            ['destination', null, InputOption::VALUE_OPTIONAL, 'Destination configuration name', null],
 //            ['destinationPath', null, InputOption::VALUE_OPTIONAL, 'File destination path', null],
 //            ['compression', null, InputOption::VALUE_OPTIONAL, 'Compression type', null],
 //        ];
-    }
+//    }
 
 
 

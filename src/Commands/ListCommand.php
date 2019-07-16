@@ -39,41 +39,26 @@ class ListCommand extends Command {
      *
      * @var array
      */
-    private $required = ['source', 'path'];
-
-    /**
-     * The missing arguments.
-     *
-     * @var array
-     */
-    private $missingArguments;
+    private $required_arguments = ['provider'];
 
     /**
      * @param FilesystemProvider $filesystems
      */
     public function __construct(FilesystemProvider $filesystems) {
-        parent::__construct();
         $this->filesystems = $filesystems;
+        parent::__construct();
     }
 
     /**
-     * Execute the console command.
-     *
-     * @throws \LogicException
-     * @throws \BackupManager\Filesystems\FilesystemTypeNotSupported
-     * @throws \BackupManager\Config\ConfigFieldNotFound
      * @throws \BackupManager\Config\ConfigNotFoundForConnection
-     * @return void
+     * @throws \BackupManager\Filesystems\FilesystemTypeNotSupported
      */
     public function handle() {
-        if($this->isMissingArguments()) {
-            $this->displayMissingArguments();
-            $this->promptForMissingArgumentValues();
-            $this->validateArguments();
-        }
+        // Ensure all required arguments are set, and validate them.
+        $this->promptUserForRequiredArguments();
 
-        $filesystem = $this->filesystems->get($this->option('source'));
-        $contents = $filesystem->listContents($this->option('path'));
+        $filesystem = $this->filesystems->get($this->option('provider'));
+        $contents = $filesystem->listContents('/');
         $rows = [];
         foreach ($contents as $file) {
             if ($file['type'] == 'dir') continue;
@@ -88,37 +73,23 @@ class ListCommand extends Command {
     }
 
 
-
-
-
-
-//    /**
-//     * @return void
-//     */
-//    private function validateArguments() {
-//        $root = $this->filesystems->getConfig($this->option('source'), 'root');
-//        $this->info('Just to be sure...');
-//        $this->info(sprintf('Do you want to list files from <comment>%s</comment> on <comment>%s</comment>?',
-//            $root . $this->option('path'),
-//            $this->option('source')
-//        ));
-//        $this->line('');
-//        $confirmation = $this->confirm('Are these correct? [Y/n]');
-//        if ( ! $confirmation) {
-//            $this->reaskArguments();
-//        }
-//    }
-
     /**
-     * Get the console command options.
-     *
-     * @return void
+     * Prompt user for required arguments if they are missing.
      */
-    private function reaskArguments() {
-        $this->line('');
-        $this->info('Answers have been reset and re-asking questions.');
-        $this->line('');
-        $this->promptForMissingArgumentValues();
+    private function promptUserForRequiredArguments()
+    {
+        foreach($this->required_arguments as $required_argument)
+        {
+            // Handle 'provider' argument:
+            if(! $this->option($required_argument) && $required_argument === 'provider') {
+                $providers = $this->filesystems->getAvailableProviders();
+                $formatted = implode(', ', $providers);
+                $this->info("Available providers: <comment>{$formatted}</comment>");
+                $provider = $this->autocomplete("Which provider?", $providers);
+                $this->input->setOption('provider', $provider);
+                $this->line('');
+            }
+        }
     }
 
     /**
@@ -128,8 +99,7 @@ class ListCommand extends Command {
      */
     protected function getOptions() {
         return [
-            ['source', null, InputOption::VALUE_OPTIONAL, 'Source configuration name', null],
-            ['path', null, InputOption::VALUE_OPTIONAL, 'Directory path', null],
+            ['provider', null, InputOption::VALUE_OPTIONAL, 'Provider to list backups for', null],
         ];
     }
 

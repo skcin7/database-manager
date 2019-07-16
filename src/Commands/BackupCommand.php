@@ -8,6 +8,7 @@ use BackupManager\Databases\DatabaseProvider;
 use BackupManager\Procedures\BackupProcedure;
 use BackupManager\Filesystems\FilesystemProvider;
 use Carbon\Carbon;
+use Symfony\Component\Console\Input\InputOption;
 
 /**
  * Class BackupCommand
@@ -48,7 +49,7 @@ class BackupCommand extends Command {
 
     /**
      * FilesystemProvider
-     * 
+     *
      * @var \BackupManager\Filesystems\FilesystemProvider
      */
     private $filesystems;
@@ -83,11 +84,7 @@ class BackupCommand extends Command {
     /**
      * Execute the console command.
      *
-     * @throws \BackupManager\Filesystems\FilesystemTypeNotSupported
-     * @throws \BackupManager\Compressors\CompressorTypeNotSupported
-     * @throws \BackupManager\Databases\DatabaseTypeNotSupported
-     * @throws \BackupManager\Config\ConfigNotFoundForConnection
-     * @return mixed
+     * @return int
      */
     public function handle()
     {
@@ -122,7 +119,7 @@ class BackupCommand extends Command {
                 $this->compression
             );
         }
-        catch (\Exception $ex) {
+        catch(\Exception $ex) {
             $this->error($ex->getMessage());
             return 1;
         }
@@ -176,6 +173,18 @@ class BackupCommand extends Command {
             $this->option('provider')
         ));
         return $this->confirm('Confirm Backup? [y/n]');
+    }
+
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions() {
+        return [
+            ['database', null, InputOption::VALUE_OPTIONAL, 'Database configuration name', null],
+            ['provider', null, InputOption::VALUE_OPTIONAL, 'Provider to be used to store the backup', null],
+        ];
     }
 
 }

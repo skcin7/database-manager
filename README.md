@@ -1,10 +1,10 @@
-# Laravel Driver for the Database Backup Manager 1.3.1
+# Database Manager Package for Your Laravel Projects
 
 Laravel package to manage your databases (including backups) easily in a Laravel project.
 
-This package is based on [backup-manager/laravel](https://github.com/backup-manager/laravel) by Shawn McCool and Mitchell van Wijngaarden so credit to them for their great work.
+> Note: This package makes use of the framework-agnostic [backup-manager/backup-manager](https://github.com/backup-manager/backup-manager) package which this one is a dependency of. For more information (including Symfony driver) see that package.
 
-> Note: This package is for Laravel integration only. For information about the framework-agnostic core package (or the Symfony driver) please see [the base package repository](https://github.com/backup-manager/backup-manager).
+> Credit: This package is based on [backup-manager/laravel](https://github.com/backup-manager/laravel) by Shawn McCool and Mitchell van Wijngaarden so credit to them for their great work.
 
 ### Table of Contents
 
@@ -18,9 +18,9 @@ This package is based on [backup-manager/laravel](https://github.com/backup-mana
 
 ### Stability Notice
 
-It's stable enough. You'll need to understand filesystem permissions.
+It's stable.
 
-I am actively developing/using this package, and I would appreciate all feedback/suggestions to improve it. [Please feel free to create an issue here on GitHub to submit feedback and ideas.](https://github.com/skcin7/database-manager)
+I'm actively using this package in my own Laravel projects for managing backups. I would appreciate all feedback/suggestions you may have by [opening a GitHub issue here](https://github.com/skcin7/database-manager).
 
 ### Requirements
 
@@ -36,55 +36,25 @@ I am actively developing/using this package, and I would appreciate all feedback
 
 It's super easy.
 
-1. Run the following to include this via Composer
+1. Run the following command to include this package via Composer: `composer require skcin7/database-manager`.
 
-```shell
-composer require skcin7/database-manager
-```
-
-2. Publish the configuration file. After publishing, edit the configuration with your specific configuration.
+2. Publish the configuration file.
 
 ```php
 php artisan vendor:publish --provider="skcin7\DatabaseManager\DatabaseManagerServiceProvider"
 ```
 
-This package makes use of your database configuration located in `config/database.php`. The package can easily backup and restore all connections listed in that file.
+After publishing, edit this configuration file (which will be located in `config/database-manager.php`) to have your specific configuration needs.
 
-**IoC Resolution**
-
-`BackupManager\Manager` can be automatically resolved through constructor injection thanks to Laravel's IoC container.
-
-```php
-use BackupManager\Manager;
-
-public function __construct(Manager $manager) {
-    $this->manager = $manager;
-}
-```
-
-It can also be resolved manually from the container.
-
-```php
-$manager = App::make(\BackupManager\Manager::class);
-```
+This package makes use of your database configurations in `config/database.php`. The package manages your database connections listed in that file.
 
 **Artisan Commands**
 
-After installation, there will be three Artisan commands available which are: `database-manager:create-backup`, `database-manager:list-backups`, and `database-manager:restore-backup`.
+After installation, there will be 3 new Artisan commands available in your project which are: `database-manager:create-backup`, `database-manager:list-backups`, and `database-manager:restore-backup`.
 
-All will prompt you with simple questions to successfully execute the command.
+### Scheduling Your Backups
 
-**Example Command for 24hour scheduled cronjob**
-
-```
-php artisan db:backup --database=mysql --destination=dropbox --destinationPath=project --timestamp="d-m-Y" --compression=gzip
-```
-
-This command will backup your database to dropbox using mysql and gzip compresion in path /backups/project/DATE.gz (ex: /backups/project/31-7-2015.gz)
-
-### Scheduling Backups
-
-It's possible to schedule backups using Laravel's scheduler.
+Now you can schedule your Laravel database backups (such as a daily backup) using Laravel Task Scheduling.
 
 ```PHP
 /**
@@ -120,4 +90,4 @@ This package is maintained by [Nick Morgan](http://nicholas-morgan.com).
 
 ### License
 
-This package is licensed under the [MIT license](https://github.com/backup-manager/laravel/blob/master/LICENSE).
+This package is licensed under the [MIT license](https://github.com/skcin7/database-manager/blob/master/LICENSE).

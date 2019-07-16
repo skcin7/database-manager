@@ -32,11 +32,11 @@ I'm actively using this package in my own Laravel projects for managing backups.
 
 ### Installation
 
-**Composer**
+**Use Composer**
 
 It's super easy.
 
-1. Run the following command to include this package via Composer: `composer require skcin7/database-manager`.
+1. Run the following command: `composer require skcin7/database-manager`.
 
 2. Publish the configuration file.
 
@@ -44,7 +44,7 @@ It's super easy.
 php artisan vendor:publish --provider="skcin7\DatabaseManager\DatabaseManagerServiceProvider"
 ```
 
-After publishing, edit this configuration file (which will be located in `config/database-manager.php`) to have your specific configuration needs.
+After publishing, edit this configuration file (which will be located in `config/database-manager.php`) to your specific configuration needs.
 
 This package makes use of your database configurations in `config/database.php`. The package manages your database connections listed in that file.
 

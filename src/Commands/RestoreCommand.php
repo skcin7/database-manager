@@ -91,7 +91,7 @@ class RestoreCommand extends Command {
             $this->info('Restoring backup ...');
             $this->restoreProcedure->run(
                 $this->option('provider'),
-                $this->option('sourcePath'),
+                '/' . $this->option('sourcePath'),
                 $this->option('database'),
                 $this->compression
             );
@@ -120,7 +120,7 @@ class RestoreCommand extends Command {
                 $providers = $this->databases->getAvailableProviders();
                 $formatted = implode(', ', $providers);
                 $this->info("Available databases: <comment>{$formatted}</comment>");
-                $database = $this->autocomplete("Which database?", $providers);
+                $database = $this->autocomplete("Which database will be restored to?", $providers);
                 $this->input->setOption('database', $database);
                 $this->line('');
             }
@@ -138,13 +138,13 @@ class RestoreCommand extends Command {
             // Handle 'sourcePath' argument:
             if(! $this->option($required_argument) && $required_argument === 'sourcePath') {
                 // ask path
-                $root = $this->filesystems->getConfig($this->option('provider'), 'root');
-                $path = $this->ask("From which path do you want to select?<comment> {$root}</comment>");
-                $this->line('');
+//                $root = $this->filesystems->getConfig($this->option('provider'), 'root');
+//                $path = $this->ask("From which path do you want to select? <comment>{$root}</comment>");
+//                $this->line('');
 
                 // ask file
                 $filesystem = $this->filesystems->get($this->option('provider'));
-                $contents = $filesystem->listContents($path);
+                $contents = $filesystem->listContents('/');
 
                 $files = [];
 
@@ -159,7 +159,7 @@ class RestoreCommand extends Command {
                 }
 
                 $rows = [];
-                foreach ($contents as $file) {
+                foreach($contents as $file) {
                     if($file['type'] == 'dir') continue;
                     $rows[] = [
                         $file['basename'],
@@ -170,13 +170,11 @@ class RestoreCommand extends Command {
                 }
                 $this->info('Available database dumps:');
                 $this->table(['Name', 'Extension', 'Size', 'Created'], $rows);
-                $filename = $this->autocomplete("Which database dump do you want to restore?", $files);
-                $this->input->setOption('sourcePath', "{$path}/{$filename}");
+                $filename = $this->autocomplete("Which database backup do you want to restore?", $files);
+                $this->input->setOption('sourcePath', "{$filename}");
             }
         }
     }
-
-
 
     /**
      * Get the console command options.

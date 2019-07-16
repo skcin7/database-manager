@@ -81,4 +81,4 @@ This package is maintained by [Nick Morgan](http://nicholas-morgan.com).
 
 ### License
 
-This package is licensed under the [MIT license](https://github.com/skcin7/database-manager/blob/master/LICENSE.md).
+This package is licensed under the [MIT License](https://github.com/skcin7/database-manager/blob/master/LICENSE.md).
